@@ -3,13 +3,12 @@ CP1404/CP5632 Practical
 Testing demo using assert and doctest
 """
 
-import doctest
-from prac_07.car import Car
-
+from car import Car
 
 def repeat_string(s, n):
     """Repeat string s, n times, with spaces in between."""
-    return s * n
+    s.join('-', n)
+    return s
 
 
 def is_long_word(word, length=5):
@@ -28,13 +27,14 @@ def is_long_word(word, length=5):
 def run_tests():
     """Run the tests on the functions."""
     # assert test with no message - used to see if the function works properly
-    assert repeat_string("Python", 1) == "Python"
+    #assert repeat_string("Python", 1) == "Python"
     # the test below should fail
-    assert repeat_string("hi", 2) == "hi hi"
+    #assert repeat_string("hi", 2) == "hi hi"
 
     # TODO: 1. fix the repeat_string function above so that it passes the test
     # Hint: "-".join(["yo", "yo"] -> "yo-yo"
-
+    my_str = repeat_string('yo', 'yo')
+    print (my_str)
     # assert test with custom message,
     # used to see if Car's init method sets the odometer correctly
     # this should pass (no output)

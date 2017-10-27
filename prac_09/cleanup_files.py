@@ -10,65 +10,39 @@ def main():
     """Demo file renaming with the os module."""
     print("Current directory is", os.getcwd())
 
-
-
-                        # print(filename)
-
-                        # Option 1: rename file to new name - in place
-                        # os.rename(filename, new_name)
-
-                        # Option 2: move file to new place, with new name
-                #        shutil.copy(filename, 'temp/' + new_name)
-
-    # change to desired directory
+   # change to desired directory
     os.chdir('Lyrics')
     # print a list of all files (test)
     print(os.listdir('.'))
-    # make a new directory
-    #os.mkdir('temp')
     # loop through each file in the (original) directory
     for dir_name, subdir_list, file_list in os.walk('.'):
         print("In", dir_name)
         print("\tcontains subdirectories:", subdir_list)
         print("\tand files:", file_list)
+        if dir_name != '.':
+            try:
+                os.mkdir(dir_name + './temp')
+            except:
+                print('ERROR - directory not made')
         for filename in os.listdir(dir_name):
         # ignore directories, just process files
-            if not os.path.isdir(filename):
+            if not os.path.isdir(filename) and filename != '._D_S_Store':
                 new_name = get_fixed_filename(filename)
-                print(filename, '  ', new_name)
 
             #print(filename)
-
+            if dir_name != '.' :
             # Option 1: rename file to new name - in place
-            os.rename(filename, new_name)
+                os.rename(dir_name + '/' +filename, dir_name + '/' + new_name)
 
             # Option 2: move file to new place, with new name
-            #shutil.copy(filename, 'temp/' + new_name)
+                shutil.move(dir_name + '/' + new_name, dir_name + '/temp')
 
             # Processing subdirectories using os.walk()
 
-            # os.chdir('..')  # .. means "up" one directory
+            # os.chdir('..')  # .. means "up" one  directory
 
         #os.mkdir('temp')
-"""        for filename in os.listdir('.'):
 
-            # ignore directories, just process files
-            if not os.path.isdir(filename):
-                new_name = get_fixed_filename(filename)
-                print(new_name)
-                # print(filename)
-
-                # Option 1: rename file to new name - in place
-                # os.rename(filename, new_name)
-
-                # Option 2: move file to new place, with new name
-                shutil.copy(filename, 'temp/' + new_name)
-
-                # Processing subdirectories using os.walk()
-
-                # os.chdir('..')  # .. means "up" one directory
-
-"""
 def get_fixed_filename(filename):
     """Return a 'fixed' version of filename."""
     # First, replace the spaces and .TXT (the easy part)
